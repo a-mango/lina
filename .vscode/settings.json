@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "display.h": "c",
+        "matrix.h": "c",
+        "stdlib.h": "c"
+    }
+}

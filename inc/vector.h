@@ -3,6 +3,7 @@
 
 #include <types.h>
 
+
 typedef enum VectorType {
     VEC_TYPE_COL,
     VEC_TYPE_ROW,

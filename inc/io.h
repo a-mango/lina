@@ -7,11 +7,10 @@
 
 void lc_setup();
 
-void mat_print(Matrix* const mat);
+void mat_print(const Matrix* mat);
+void vec_print(const Vector* vec);
 
-void vec_print(Vector* const vec);
-
-void _v_col_print(Vector* const vec);
-void _v_row_print(Vector* const vec);
+void _v_col_print(const Vector* vec);
+void _v_row_print(const Vector* vec);
 
 #endif // IO_H

@@ -11,7 +11,7 @@ void lc_setup() {
     fwide(stdout, 1);
 }
 
-void mat_print(Matrix* const mat) {
+void mat_print(const Matrix* mat) {
     uint mat_display_width = mat->col_cnt * 4 + 2;
 
     wchar_t* buffer_top = (wchar_t*)calloc(mat_display_width + 1, sizeof(wchar_t));
@@ -38,7 +38,7 @@ void mat_print(Matrix* const mat) {
     free(buffer_bot);
 }
 
-void vec_print(Vector* const vec) {
+void vec_print(const Vector* vec) {
     switch(vec->type) {
         case VEC_TYPE_COL:
             _v_col_print(vec);
@@ -52,7 +52,7 @@ void vec_print(Vector* const vec) {
     }
 }
 
-void _v_col_print(Vector* const vec) {
+void _v_col_print(const Vector* vec) {
     uint vec_display_width = 6;
 
     wchar_t* buffer_top = (wchar_t*)calloc(vec_display_width + 1, sizeof(wchar_t));
@@ -75,7 +75,7 @@ void _v_col_print(Vector* const vec) {
     free(buffer_bot);
 }
 
-void _v_row_print(Vector* const vec) {
+void _v_row_print(const Vector* vec) {
     wprintf(L"%s ", L"[");
     for (uint i = 0; i < vec->size; i++) {
         wprintf(L"%*.1lf ", 3, vec->data[i]);

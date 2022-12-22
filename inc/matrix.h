@@ -15,7 +15,9 @@ Matrix* mat_alloc(uint row_cnt, uint col_cnt);
 void    mat_free(Matrix* mat);
 
 
-Matrix* mat_inverse(const Matrix* mat);
+void mat_transpose(Matrix* mat);
+void mat_inverse(Matrix* mat);
+
 Matrix* mat_add(const Matrix* m1, const Matrix* m2);
 Matrix* mat_multiply(const Matrix* m1, const Matrix* m2);
 

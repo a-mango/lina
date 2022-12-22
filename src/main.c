@@ -13,21 +13,31 @@ int main(int argc, char** argv) {
 
     wprintf(L"%s\n\n", "Hello Lina !");
 
-    Matrix* m = mat_create(3, 3, 1.,2.,3.,4.,5.,6., 7., 8., 9.);
-    mat_print(m);
-    mat_free(m);
+    Matrix* m1 = mat_create(3, 3, 1.,2.,3.,4.,5.,6., 7., 8., 9.);
+    Matrix* m2 = mat_create(3, 3, -1.,2.,-3.,-4.,-5.,-6., -7., -8., -9.);
 
-    Vector* v1 = vec_create(VEC_TYPE_COL, 3, 4., 5., 6.);
-    Vector* v2 = vec_create(VEC_TYPE_ROW, 3, 1., 2., 3.);
-    vec_print(v1);
-    vec_print(v2);
+    mat_print(m1);
+    mat_print(m2);
 
-    double result = scalar_product(v1->data, v2->data, 3);
+    Matrix* m3 = mat_add(m1, m2);
 
-    wprintf(L"%lf", result);
+    mat_print(m3);
 
-    vec_free(v1);
-    vec_free(v2);
+    mat_free(m1);
+    mat_free(m2);
+    mat_free(m3);
+
+    // Vector* v1 = vec_create(VEC_TYPE_COL, 3, 4., 5., 6.);
+    // Vector* v2 = vec_create(VEC_TYPE_ROW, 3, 1., 2., 3.);
+    // vec_print(v1);
+    // vec_print(v2);
+
+    // double result = scalar_product(v1->data, v2->data, 3);
+
+    // wprintf(L"%lf", result);
+
+    // vec_free(v1);
+    // vec_free(v2);
 
     return EXIT_SUCCESS;
 }

@@ -6,7 +6,7 @@
 
 typedef struct Vector {
     uint size;
-    double data;
+    double* data;
 } Vector;
 
 Vector* vec_create(uint size, ...);

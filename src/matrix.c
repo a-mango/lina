@@ -4,8 +4,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-Matrix *create_matrix(uint row_cnt, uint col_cnt, ...) {
-    Matrix *mat = matrix_alloc(row_cnt, col_cnt); 
+Matrix *mat_create(uint row_cnt, uint col_cnt, ...) {
+    Matrix *mat = mat_alloc(row_cnt, col_cnt); 
 
     va_list args;
     va_start(args, col_cnt);
@@ -21,7 +21,7 @@ Matrix *create_matrix(uint row_cnt, uint col_cnt, ...) {
     return mat;
 }
 
-Matrix* matrix_alloc(uint row_cnt, uint col_cnt) {
+Matrix* mat_alloc(uint row_cnt, uint col_cnt) {
     Matrix *mat = malloc(sizeof(Matrix));
     mat->row_cnt = row_cnt;
     mat->col_cnt = col_cnt;
@@ -33,10 +33,10 @@ Matrix* matrix_alloc(uint row_cnt, uint col_cnt) {
     return mat;
 }
 
-void print_matrix(Matrix* const mat) {
+void mat_print(Matrix* const mat) {
     for(uint i = 0; i < mat->row_cnt; i++) {
         for(uint j = 0; j < mat->col_cnt; j++) {
-            printf("%.1lf ", mat->data[i][j]);
+            printf("%.*lf ", 3, mat->data[i][j]);
         }
         printf("\n");
     }

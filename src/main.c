@@ -9,8 +9,8 @@
 int main(int argc, char** argv) {
     printf("%s\n", "Hello Lina !");
 
-    Matrix* m = create_matrix(2, 2, 1.,2.,3.,4.);
-    print_matrix(m);
+    Matrix* m = mat_create(2, 2, 1.,2.,3.,4.);
+    mat_print(m);
     
     return EXIT_SUCCESS;
 }

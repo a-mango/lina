@@ -9,12 +9,12 @@ typedef struct Matrix {
     double** data;
 } Matrix;
 
-Matrix* create_matrix(uint row_cnt, uint col_cnt, ...);
+Matrix* mat_create(uint row_cnt, uint col_cnt, ...);
 
-Matrix* matrix_alloc(uint row_cnt, uint col_cnt);
-void    matrix_free(Matrix* const mat);
+Matrix* mat_alloc(uint row_cnt, uint col_cnt);
+void    mat_free(Matrix* const mat);
 
 // Utils
-void    print_matrix(Matrix* const mat);
+void    mat_print(Matrix* const mat);
 
 #endif // MATRIX_H

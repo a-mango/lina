@@ -4,9 +4,10 @@
 #include <stdarg.h>
 // #include <stdio.h>
 
-Vector* vec_create(uint size, ...) {
+Vector* vec_create(VectorType type, uint size, ...) {
     Vector* vec = vec_alloc(size);
-
+    vec->type = type;
+    
     va_list args;
     va_start(args, size);
 

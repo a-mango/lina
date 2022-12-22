@@ -3,13 +3,18 @@
 
 #include <types.h>
 
+typedef enum VectorType {
+    VEC_TYPE_COL,
+    VEC_TYPE_ROW,
+} VectorType;
 
 typedef struct Vector {
-    uint size;
-    double* data;
+    VectorType  type;
+    uint        size;
+    double*     data;
 } Vector;
 
-Vector* vec_create(uint size, ...);
+Vector* vec_create(VectorType type, uint size, ...);
 Vector* vec_alloc(uint size);
 void    vec_free(Vector* vec);
 

@@ -3,6 +3,7 @@
 #include <wchar.h>
 
 #include <matrix.h>
+#include <vector.h>
 #include <io.h>
 
 
@@ -14,5 +15,13 @@ int main(int argc, char** argv) {
     Matrix* m = mat_create(3, 3, 1.,2.,3.,4.,5.,6., 7., 8., 9.);
     mat_print(m);
     mat_free(m);
+
+    Vector* v1 = vec_create(VEC_TYPE_COL, 3, 4., 5., 6.);
+    Vector* v2 = vec_create(VEC_TYPE_ROW, 6, 1., 2., 3., 4., 5., 6.);
+    vec_print(v1);
+    vec_print(v2);
+    vec_free(v1);
+    vec_free(v2);
+
     return EXIT_SUCCESS;
 }

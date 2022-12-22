@@ -1,8 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <types.h>
 
-typedef unsigned int uint;
 
 typedef struct Matrix {
     uint     row_cnt;
@@ -11,7 +11,6 @@ typedef struct Matrix {
 } Matrix;
 
 Matrix* mat_create(uint row_cnt, uint col_cnt, ...);
-
 Matrix* mat_alloc(uint row_cnt, uint col_cnt);
 void    mat_free(Matrix* mat);
 

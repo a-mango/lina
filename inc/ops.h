@@ -2,8 +2,9 @@
 #define LINA_OPS_H
 
 #include <vector.h>
+#include <stddef.h>
 
 
-double dot_product(const Vector* v1, const Vector* v2);
+double scalar_product(const double* row, const double* col, size_t n);
 
 #endif // LINA_OPS_H

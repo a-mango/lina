@@ -5,6 +5,7 @@
 #include <matrix.h>
 #include <vector.h>
 #include <io.h>
+#include <ops.h>
 
 
 int main(int argc, char** argv) {
@@ -17,9 +18,14 @@ int main(int argc, char** argv) {
     mat_free(m);
 
     Vector* v1 = vec_create(VEC_TYPE_COL, 3, 4., 5., 6.);
-    Vector* v2 = vec_create(VEC_TYPE_ROW, 6, 1., 2., 3., 4., 5., 6.);
+    Vector* v2 = vec_create(VEC_TYPE_ROW, 3, 1., 2., 3.);
     vec_print(v1);
     vec_print(v2);
+
+    double result = scalar_product(v1->data, v2->data, 3);
+
+    wprintf(L"%lf", result);
+
     vec_free(v1);
     vec_free(v2);
 

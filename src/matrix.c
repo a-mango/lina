@@ -1,0 +1,43 @@
+#include <matrix.h>
+
+#include <stdlib.h>
+#include <stdarg.h>
+#include <stdio.h>
+
+Matrix *create_matrix(uint row_cnt, uint col_cnt, ...) {
+    Matrix *mat = matrix_alloc(row_cnt, col_cnt); 
+
+    va_list args;
+    va_start(args, col_cnt);
+
+    for (uint i = 0; i < row_cnt; i++) {
+        for (uint j = 0; j < row_cnt; j++) {
+            mat->data[i][j] = va_arg(args, double);
+        }
+    }
+
+    va_end(args);
+
+    return mat;
+}
+
+Matrix* matrix_alloc(uint row_cnt, uint col_cnt) {
+    Matrix *mat = malloc(sizeof(Matrix));
+    mat->row_cnt = row_cnt;
+    mat->col_cnt = col_cnt;
+    mat->data = (double**)calloc(mat->row_cnt, sizeof(double*));
+    for(uint i = 0; i < mat->row_cnt; i++) {
+        mat->data[i] = (double*)calloc(mat->col_cnt, sizeof(double));
+    }
+
+    return mat;
+}
+
+void print_matrix(Matrix* const mat) {
+    for(uint i = 0; i < mat->row_cnt; i++) {
+        for(uint j = 0; j < mat->col_cnt; j++) {
+            printf("%.1lf ", mat->data[i][j]);
+        }
+        printf("\n");
+    }
+}

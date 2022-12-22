@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <string.h>
-#include <wchar.h>
 
 
 Matrix* mat_create(uint row_cnt, uint col_cnt, ...) {
@@ -42,31 +40,4 @@ void mat_free(Matrix* mat) {
 
     free(mat->data);
     free(mat);
-}
-
-void mat_print(Matrix* const mat) {
-    uint mat_display_width = mat->col_cnt * 4 + 2;
-
-    wchar_t* buffer_top = (wchar_t*)calloc(mat_display_width + 1, sizeof(wchar_t));
-    wchar_t* buffer_bot = (wchar_t*)calloc(mat_display_width + 1, sizeof(wchar_t));
-    wcsncat((buffer_top + 1), L"              ", mat_display_width - 1);
-    wcsncat((buffer_bot + 1), L"              ", mat_display_width - 1);
-    buffer_top[0] = 0x250c;
-    buffer_top[mat_display_width] = 0x2510;
-    buffer_bot[0] = 0x2514;
-    buffer_bot[mat_display_width] = 0x2518;
-
-    wprintf(L"%ls\n", buffer_top);
-    for (uint i = 0; i < mat->row_cnt; i++) {
-        wprintf(L"│ ");
-        for (uint j = 0; j < mat->col_cnt; j++) {
-            wprintf(L"%*.1lf ", 3, mat->data[i][j]);
-        }
-        wprintf(L"│\n");
-    }
-    wprintf(L"%ls\n", buffer_bot);
-    fflush(stdout);
-
-    free(buffer_top);
-    free(buffer_bot);
 }

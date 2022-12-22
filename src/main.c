@@ -1,16 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
-#include <locale.h>
 #include <wchar.h>
 
 #include <matrix.h>
 #include <io.h>
 
-void lc_setup() {
-    setlocale(LC_ALL, "");
-    fwide(stdout, 1);
-}
 
 int main(int argc, char** argv) {
     lc_setup();

@@ -24,9 +24,17 @@ int main(int argc, char** argv) {
 
     mat_print(m3);
 
+    // Tryout row and column extraction.
+    Matrix* m4 = mat_get_row(m1, 1);
+    Matrix* m5 = mat_get_col(m1, 1);
+    mat_print(m4);
+    mat_print(m5);
+
     mat_free(m1);
     mat_free(m2);
     mat_free(m3);
+    mat_free(m4);
+    mat_free(m5);
 
     log_msg("End of program");
     log_err("Sample error");

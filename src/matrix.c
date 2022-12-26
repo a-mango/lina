@@ -44,12 +44,16 @@ void mat_free(Matrix* mat) {
 }
 
 
-void mat_transpose(Matrix* mat) {
-    return;
-}
+Matrix* mat_transpose(const Matrix* mat) {
+    Matrix* mat_t = mat_alloc(mat->col_cnt, mat->row_cnt);
+    // Invert rows and columns.
+    for (uint i = 0; i < mat->row_cnt; i++) {
+        for (uint j = 0; j < mat->col_cnt; j++) {
+            mat_t->data[j][i] = mat->data[i][j];
+        }
+    }
 
-void mat_inverse(Matrix* mat) {
-    return;
+    return mat_t;
 }
 
 Matrix* mat_add(const Matrix* m1, const Matrix* m2) {
@@ -70,6 +74,60 @@ Matrix* mat_add(const Matrix* m1, const Matrix* m2) {
     return mat;
 }
 
+Matrix* mat_sub(const Matrix* m1, const Matrix* m2) {
+    // Check if matrices are compatible.
+    if (m1->row_cnt != m2->row_cnt || m1->col_cnt != m2->col_cnt) {
+        fprintf(stderr, "Error: matrices are incompatible\nExiting...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    Matrix* mat = mat_create(m1->row_cnt, m1->col_cnt);
+
+    for(size_t i = 0; i < m1->row_cnt; i++) {
+        for(size_t j = 0; j < m1->col_cnt; j++) {
+            mat->data[i][j] = m1->data[i][j] - m2->data[i][j];
+        }
+    }
+
+    return mat;
+}
+
 Matrix* mat_multiply(const Matrix* m1, const Matrix* m2) {
-    return NULL;
+    // Check if matrices are compatible.
+    if (m1->col_cnt != m2->row_cnt) {
+        fprintf(stderr, "Error: matrices are incompatible\nExiting...\n");
+        exit(EXIT_FAILURE);
+    }
+
+    Matrix* m2_t = mat_transpose(m2);
+    Matrix* res = mat_create(m1->row_cnt, m2->col_cnt);
+    
+    // Multiply matrices.
+    for (uint i = 0; i < m1->row_cnt; i++) {
+        for (uint j = 0; j < m2->col_cnt; j++) {
+            res->data[i][j] = scalar_product(m1->data[i], m2_t->data[j], m1->col_cnt);
+        }
+    }
+
+    free(m2_t);
+    
+    return res;
+}
+
+Matrix* mat_get_row(const Matrix* mat, uint row_idx) {
+    Matrix* row = mat_alloc(1, mat->col_cnt);
+    for (uint i = 0; i < mat->col_cnt; i++) {
+        row->data[0][i] = mat->data[row_idx][i];
+    }
+
+    return row;
+}
+
+Matrix* mat_get_col(const Matrix* mat, uint col_idx) {
+    Matrix* col = mat_alloc(mat->row_cnt, 1);
+    for (uint i = 0; i < mat->row_cnt; i++) {
+        col->data[i][0] = mat->data[i][col_idx];
+    }
+
+    return col;
 }

@@ -1,10 +1,14 @@
+#include <io.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
 #include <locale.h>
+#include <string.h>
 
-#include <io.h>
 
+#define LOG_PREFIX "[LOG] "
+#define LOG_ERR_PREFIX "[ERROR] "
 
 void lc_setup() {
     setlocale(LC_ALL, "");
@@ -83,4 +87,28 @@ void _v_row_print(const Vector* vec) {
     wprintf(L"%ls\n", L"]");
 
     fflush(stdout);
+}
+
+void print(const char* msg) {
+    wchar_t* buffer = (wchar_t*)calloc(strlen(msg) + 1, sizeof(wchar_t));
+    mbstowcs(buffer, msg, strlen(msg));
+    wprintf(L"%ls\n", buffer);
+    fflush(stdout);
+    free(buffer);
+}
+
+void log_msg(const char* msg) {
+    char* buffer = (char*)calloc(strlen(msg) + strlen(LOG_PREFIX) + 1, sizeof(char));
+    strcat(buffer, LOG_PREFIX);
+    strcat(buffer, msg);
+    print(buffer);
+    free(buffer);
+}
+
+void log_err(const char* msg) {
+    char* buffer = (char*)calloc(strlen(msg) + strlen(LOG_ERR_PREFIX) + 1, sizeof(char));
+    strcat(buffer, LOG_ERR_PREFIX);
+    strcat(buffer, msg);
+    print(buffer);
+    free(buffer);
 }

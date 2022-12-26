@@ -11,7 +11,8 @@
 int main(int argc, char** argv) {
     lc_setup();
 
-    wprintf(L"%s\n\n", "Hello Lina !");
+    print("Hello Lina !");
+    print("Version 0.0.1\n");
 
     Matrix* m1 = mat_create(3, 3, 1.,2.,3.,4.,5.,6., 7., 8., 9.);
     Matrix* m2 = mat_create(3, 3, -1.,2.,-3.,-4.,-5.,-6., -7., -8., -9.);
@@ -27,6 +28,8 @@ int main(int argc, char** argv) {
     mat_free(m2);
     mat_free(m3);
 
+    log_msg("End of program");
+    log_err("Sample error");
     // Vector* v1 = vec_create(VEC_TYPE_COL, 3, 4., 5., 6.);
     // Vector* v2 = vec_create(VEC_TYPE_ROW, 3, 1., 2., 3.);
     // vec_print(v1);

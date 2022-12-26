@@ -12,8 +12,8 @@ Matrix* mat_create(uint row_cnt, uint col_cnt, ...) {
     va_list args;
     va_start(args, col_cnt);
 
-    for (uint i = 0; i < row_cnt; i++) {
-        for (uint j = 0; j < row_cnt; j++) {
+    for (size_t i = 0; i < row_cnt; ++i) {
+        for (size_t j = 0; j < row_cnt; ++j) {
             mat->data[i][j] = va_arg(args, double);
         }
     }
@@ -28,7 +28,7 @@ Matrix* mat_alloc(uint row_cnt, uint col_cnt) {
     mat->row_cnt = row_cnt;
     mat->col_cnt = col_cnt;
     mat->data = (double**)calloc(mat->row_cnt, sizeof(double*));
-    for (uint i = 0; i < mat->row_cnt; i++) {
+    for (size_t i = 0; i < mat->row_cnt; ++i) {
         mat->data[i] = (double*)calloc(mat->col_cnt, sizeof(double));
     }
 
@@ -36,7 +36,7 @@ Matrix* mat_alloc(uint row_cnt, uint col_cnt) {
 }
 
 void mat_free(Matrix* mat) {
-    for (uint i = 0; i < mat->row_cnt; i++)
+    for (size_t i = 0; i < mat->row_cnt; ++i)
         free(mat->data[i]);
 
     free(mat->data);
@@ -47,8 +47,8 @@ void mat_free(Matrix* mat) {
 Matrix* mat_transpose(const Matrix* mat) {
     Matrix* mat_t = mat_alloc(mat->col_cnt, mat->row_cnt);
     // Invert rows and columns.
-    for (uint i = 0; i < mat->row_cnt; i++) {
-        for (uint j = 0; j < mat->col_cnt; j++) {
+    for (size_t i = 0; i < mat->row_cnt; ++i) {
+        for (size_t j = 0; j < mat->col_cnt; ++j) {
             mat_t->data[j][i] = mat->data[i][j];
         }
     }
@@ -65,8 +65,8 @@ Matrix* mat_add(const Matrix* m1, const Matrix* m2) {
 
     Matrix* mat = mat_create(m1->row_cnt, m1->col_cnt);
 
-    for(size_t i = 0; i < m1->row_cnt; i++) {
-        for(size_t j = 0; j < m1->col_cnt; j++) {
+    for(size_t i = 0; i < m1->row_cnt; ++i) {
+        for(size_t j = 0; j < m1->col_cnt; ++j) {
             mat->data[i][j] = m1->data[i][j] + m2->data[i][j];
         }
     }
@@ -83,8 +83,8 @@ Matrix* mat_sub(const Matrix* m1, const Matrix* m2) {
 
     Matrix* mat = mat_create(m1->row_cnt, m1->col_cnt);
 
-    for(size_t i = 0; i < m1->row_cnt; i++) {
-        for(size_t j = 0; j < m1->col_cnt; j++) {
+    for(size_t i = 0; i < m1->row_cnt; ++i) {
+        for(size_t j = 0; j < m1->col_cnt; ++j) {
             mat->data[i][j] = m1->data[i][j] - m2->data[i][j];
         }
     }
@@ -103,8 +103,8 @@ Matrix* mat_multiply(const Matrix* m1, const Matrix* m2) {
     Matrix* res = mat_create(m1->row_cnt, m2->col_cnt);
     
     // Multiply matrices.
-    for (uint i = 0; i < m1->row_cnt; i++) {
-        for (uint j = 0; j < m2->col_cnt; j++) {
+    for (size_t i = 0; i < m1->row_cnt; ++i) {
+        for (size_t j = 0; j < m2->col_cnt; ++j) {
             res->data[i][j] = scalar_product(m1->data[i], m2_t->data[j], m1->col_cnt);
         }
     }
@@ -116,7 +116,7 @@ Matrix* mat_multiply(const Matrix* m1, const Matrix* m2) {
 
 Matrix* mat_get_row(const Matrix* mat, uint row_idx) {
     Matrix* row = mat_alloc(1, mat->col_cnt);
-    for (uint i = 0; i < mat->col_cnt; i++) {
+    for (size_t i = 0; i < mat->col_cnt; ++i) {
         row->data[0][i] = mat->data[row_idx][i];
     }
 
@@ -125,9 +125,13 @@ Matrix* mat_get_row(const Matrix* mat, uint row_idx) {
 
 Matrix* mat_get_col(const Matrix* mat, uint col_idx) {
     Matrix* col = mat_alloc(mat->row_cnt, 1);
-    for (uint i = 0; i < mat->row_cnt; i++) {
+    for (size_t i = 0; i < mat->row_cnt; ++i) {
         col->data[i][0] = mat->data[i][col_idx];
     }
 
     return col;
+}
+
+double mat_get_entry(const Matrix* mat, size_t row_idx, size_t col_idx) {
+    return mat->data[row_idx][col_idx];
 }

@@ -7,8 +7,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MATRIX_ERR_ALLOC_MSG "Error while allocating memory for matrix."
-#define MATRIX_ERR_DATA_ALLOC_MSG "Error while allocating memory for matrix data."
+
+#define ERR_MAT_ALLOC_MSG "Error while allocating memory for matrix."
+#define ERR_MAT_DATA_ALLOC_MSG "Error while allocating memory for matrix data."
 
 Matrix* mat_create(uint row_cnt, uint col_cnt, ...) {
     Matrix* mat = mat_alloc(row_cnt, col_cnt);
@@ -30,7 +31,7 @@ Matrix* mat_create(uint row_cnt, uint col_cnt, ...) {
 Matrix* mat_alloc(uint row_cnt, uint col_cnt) {
     Matrix* mat = malloc(sizeof(Matrix));
     if (mat == NULL) {
-        log_err(MATRIX_ERR_ALLOC_MSG);
+        log_err(ERR_MAT_ALLOC_MSG);
         exit(EXIT_FAILURE);
     }
 
@@ -39,14 +40,14 @@ Matrix* mat_alloc(uint row_cnt, uint col_cnt) {
 
     mat->data = (double**)calloc(mat->row_cnt, sizeof(double*));
     if (mat->data == NULL) {
-        log_err(MATRIX_ERR_DATA_ALLOC_MSG);
+        log_err(ERR_MAT_DATA_ALLOC_MSG);
         exit(EXIT_FAILURE);
     }
 
     for (size_t i = 0; i < mat->row_cnt; ++i) {
         mat->data[i] = (double*)calloc(mat->col_cnt, sizeof(double));
         if (mat->data[i] == NULL) {
-            log_err(MATRIX_ERR_DATA_ALLOC_MSG);
+            log_err(ERR_MAT_DATA_ALLOC_MSG);
             exit(EXIT_FAILURE);
         }
     }
